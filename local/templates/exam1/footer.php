@@ -1,4 +1,7 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die(); ?>
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+use Bitrix\Main\Localization\Loc;
+loc::loadMessages(__FILE__);
+?>
 </div>
 </div>
 <!-- /content -->

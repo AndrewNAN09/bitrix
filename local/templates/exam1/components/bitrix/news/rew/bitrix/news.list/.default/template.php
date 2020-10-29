@@ -13,9 +13,12 @@ $str = $date;
     if($arItem['PROPERTIES']['POSITION']['VALUE']) $str.= 'г. , '.$arItem['PROPERTIES']['POSITION']['VALUE'];
     if($arItem['PROPERTIES']['COMPANY']['VALUE']) $str .= ' , '.$arItem['PROPERTIES']['COMPANY']['VALUE'];
 
-    if(isset($arItem['PREVIEW_PICTURE']['SRC'])){
+    if(isset($arItem['PREVIEW_PICTURE']['SRC']))
+    {
         $src = $arItem['PREVIEW_PICTURE']['SRC'];
-    }else{
+    }
+    else
+        {
         $src = SITE_TEMPLATE_PATH .'/img/rew/no_photo.jpg';
     }
 
@@ -25,19 +28,22 @@ $str = $date;
 
             <div class="review-block-title">
                 <span class="review-block-name">
-                    <a href="<?=$arItem['DETAIL_PAGE_URL']?>"><?=$arItem['NAME']?></a>
+                    <a href="<?=$arItem['DETAIL_PAGE_URL']?>" title="<?=$arItem['NAME']?>"><?=$arItem['NAME']?></a>
                 </span>
                 <span class="review-block-description">
                     <?=$str;?>
                 </span>
             </div>
+            <? if(!empty($arItem['PREVIEW_TEXT'])):?>
+                <div class="review-text-cont">
+                    <?=$arItem['PREVIEW_TEXT']?>
+                </div>
+            <? endif; ?>
 
-            <div class="review-text-cont">
-                <?=$arItem['~PREVIEW_TEXT']?>
-            </div>
+
         </div>
-        <div class="review-img-wrap"><a href="<?=$arItem['DETAIL_PAGE_URL']?>">
-                <img src="<?= $src?>" alt="img"></a></div>
+        <div class="review-img-wrap"><a href="<?=$arItem['DETAIL_PAGE_URL']?>" title="<?=$arItem['NAME']?>">
+                <img src="<?= $src?>" alt="<?=$arItem['PREVIEW_PICTURE']['ALT']?>"  title="<?=$arItem['PREVIEW_PICTURE']['TITLE']?>"></a></div>
     </div>
 <?endforeach;?>
 <?if($arParams["DISPLAY_BOTTOM_PAGER"]):?>

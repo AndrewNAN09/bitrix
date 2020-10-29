@@ -1,5 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 use Bitrix\Main\Page\Asset;
+use Bitrix\Main\Localization\Loc;
+loc::loadMessages(__FILE__);
 ?>
 <!DOCTYPE html>
 <html lang="<?=LANGUAGE_ID ?>">
@@ -7,13 +9,10 @@ use Bitrix\Main\Page\Asset;
 <head>
     <title><?$APPLICATION->ShowTitle()?></title>
     <?$APPLICATION->ShowHead();?>
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta charset="utf-8" />-->
-<!--    <meta name="keywords" content="">-->
-<!--    <meta name="description" content="">-->
-<!--    <meta name="author" content="">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
     <?
+     Asset::getInstance()->addString('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+
      Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/reset.css");
      Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/style.css");
      Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/owl.carousel.css");
@@ -21,10 +20,10 @@ use Bitrix\Main\Page\Asset;
      Asset::getInstance()->addJs(SITE_TEMPLATE_PATH."/js/jquery.min.js");
      Asset::getInstance()->addJs(SITE_TEMPLATE_PATH."/js/owl.carousel.min.js");
      Asset::getInstance()->addJs(SITE_TEMPLATE_PATH."/js/scripts.js");
-
-     Asset::getInstance()->addString('<link rel="icon" type="image/vnd.microsoft.icon"  href="./img/favicon.ico">');
-     Asset::getInstance()->addString('<link rel="shortcut icon" href="./img/favicon.ico">');
      ?>
+     <link rel="icon" type="image/vnd.microsoft.icon"  href="<?=SITE_TEMPLATE_PATH?>/img/favicon.ico">'
+     <link rel="shortcut icon" href="<?=SITE_TEMPLATE_PATH?>/img/favicon.ico">
+
 
 </head>
 
@@ -39,7 +38,7 @@ use Bitrix\Main\Page\Asset;
             </div>
             <div class="main-phone-block">
             <? $data = getdate();
-            if ($data['hours'] >=9 && $data['hours']<=18):?>
+            if ($data['hours'] >=9 && $data['hours']<18):?>
                 <a href="tel:84952128506" class="phone">8 (495) 212-85-06</a>
             <? else:?>
                 <a href="mailto:store@store.ru" class="phone">store@store.ru</a>
@@ -50,18 +49,18 @@ use Bitrix\Main\Page\Asset;
                 <form action="/search/" class="main-frm-search">
                     <input type="text" name="q" placeholder="Поиск">
                     <button type="submit"></button>
-                    </form>
+                 </form>
 
-  <?$APPLICATION->IncludeComponent(
-	"bitrix:system.auth.form",
-	"demo",
-	Array(
-		"FORGOT_PASSWORD_URL" => "/login/?forgot_password=yes",
-		"PROFILE_URL" => "/login/user.php",
-		"REGISTER_URL" => "/login/?register=yes",
-		"SHOW_ERRORS" => "N"
-	)
-);?>
+                  <?$APPLICATION->IncludeComponent(
+                    "bitrix:system.auth.form",
+                    "demo",
+                    Array(
+                        "FORGOT_PASSWORD_URL" => "/login/?forgot_password=yes",
+                        "PROFILE_URL" => "/login/user.php",
+                        "REGISTER_URL" => "/login/?register=yes",
+                        "SHOW_ERRORS" => "N"
+                    )
+                );?>
                 
             </div>
         </div>
@@ -73,35 +72,30 @@ use Bitrix\Main\Page\Asset;
             <div class="menu-block popup-wrap">
                 <a href="" class="btn-menu btn-toggle"></a>
                 <div class="menu popup-block">
-
                 <?$APPLICATION->IncludeComponent(
-        "bitrix:menu",
-        "top",
-        Array(
-            "ALLOW_MULTI_SELECT" => "N",
-            "CHILD_MENU_TYPE" => "top2",
-            "DELAY" => "N",
-            "MAX_LEVEL" => "3",
-            "MENU_CACHE_GET_VARS" => array(""),
-            "MENU_CACHE_TIME" => "3600",
-            "MENU_CACHE_TYPE" => "A",
-            "MENU_CACHE_USE_GROUPS" => "Y",
-            "ROOT_MENU_TYPE" => "top",
-            "USE_EXT" => "Y"
-        )
-    );?>
-
-
+                    "bitrix:menu",
+                    "top",
+                    Array(
+                        "ALLOW_MULTI_SELECT" => "N",
+                        "CHILD_MENU_TYPE" => "top2",
+                        "DELAY" => "N",
+                        "MAX_LEVEL" => "3",
+                        "MENU_CACHE_GET_VARS" => array(""),
+                        "MENU_CACHE_TIME" => "3600",
+                        "MENU_CACHE_TYPE" => "A",
+                        "MENU_CACHE_USE_GROUPS" => "Y",
+                        "ROOT_MENU_TYPE" => "top",
+                        "USE_EXT" => "Y"
+                    )
+                );?>
                     <a href="" class="btn-close"></a>
                 </div>
                 <div class="menu-overlay"></div>
             </div>
         </div>
     </nav>
-
-    <? if($APPLICATION->GetCurPage() !='/'): ?>
     <div class="breadcrumbs-box">
-        <div class="inner-wrap">
+    <div class="inner-wrap">
     <?$APPLICATION->IncludeComponent(
 	"bitrix:breadcrumb",
 	"navchan",
@@ -110,12 +104,9 @@ use Bitrix\Main\Page\Asset;
 		"SITE_ID" => "s1",
 		"START_FROM" => "0"
 	)
-);?>
-
-
-        </div>
+    );?>
     </div>
-    <? endif; ?>
+    </div>
     <!-- /nav -->
     <!-- page -->
     <div class="page">
@@ -124,15 +115,13 @@ use Bitrix\Main\Page\Asset;
             <!-- content -->
             <div class="content">
                 <div class="cnt">
-                    <? if($APPLICATION->GetCurPage() !='/'): ?>
+                    <? if($APPLICATION->GetCurPage() != SITE_DIR): ?>
                     <header>
                          <h1><?=$APPLICATION->ShowTitle('h1')?></h1>
                     </header>
                     <hr>
                      <? else:?>
-
-                    <p>«Мебельная компания» осуществляет производство мебели на высококлассном оборудовании с применением минимальной доли ручного труда, что позволяет обеспечить высокое качество нашей продукции. Налажен производственный процесс как массового и индивидуального характера, что с одной стороны позволяет обеспечить постоянную номенклатуру изделий и индивидуальный подход – с другой.
-						</p>
+                    <p>«Мебельная компания» осуществляет производство мебели на высококлассном оборудовании с применением минимальной доли ручного труда, что позволяет обеспечить высокое качество нашей продукции. Налажен производственный процесс как массового и индивидуального характера, что с одной стороны позволяет обеспечить постоянную номенклатуру изделий и индивидуальный подход – с другой.</p>
 
 						<!-- index column -->
 		                <div class="cnt-section index-column">
